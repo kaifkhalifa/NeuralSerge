@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0a1a;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 80vh;
+}
+
+.hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+    display: flex;
+    gap: 20px;
+    font-size: 1.2em;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a1a;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.help-button {
+    background: #00ffff;
+    color: #0a0a1a;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    transition: transform 0.2s;
+}
+
+.help-button:hover {
+    transform: scale(1.1);
+}
+
+.tutorial {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.tutorial.show {
+    display: flex;
+}
+
+.tutorial-content {
+    background: #0a0a1a;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    border: 2px solid #00ffff;
+}
+
+.tutorial-content h2 {
+    color: #00ffff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.tutorial-content h3 {
+    color: #00ffff;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.tutorial-content ul {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+.tutorial-content ul li {
+    margin: 15px 0;
+    line-height: 1.4;
+}
+
+.tutorial-content ul ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.username-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.username-section label {
+    display: block;
+    margin-bottom: 10px;
+    color: #00ffff;
+}
+
+.username-section input {
+    background: #1a1a2a;
+    border: 2px solid #00ffff;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    text-align: center;
+    width: 200px;
+    outline: none;
+}
+
+.username-section input:focus {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.final-score {
+    font-size: 2em;
+    text-align: center;
+    margin: 20px 0;
+    color: #00ffff;
+}
+
+.leaderboard {
+    background: #1a1a2a;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.leaderboard-list {
+    margin-top: 15px;
+}
+
+.leaderboard-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #333;
+}
+
+.leaderboard-entry:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-entry.highlight {
+    background: rgba(0, 255, 255, 0.1);
+}
+
+.start-button {
+    background: #00ffff;
+    color: #0a0a1a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    transition: transform 0.2s;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+} 
