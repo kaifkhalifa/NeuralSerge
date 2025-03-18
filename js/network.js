@@ -4,6 +4,7 @@ class Network {
         this.synapses = [];
         this.startNeuron = null;
         this.endNeuron = null;
+        this.endNeuronActivatedProperly = false; // Track if end neuron was activated through a connection
     }
 
     addNeuron(x, y, type = 'normal') {
@@ -32,16 +33,44 @@ class Network {
     }
 
     activateNeuron(neuron) {
+        // Don't allow direct clicking of end neuron unless it's already been properly activated
+        if (neuron === this.endNeuron && !this.endNeuronActivatedProperly) {
+            return false;
+        }
+        
         if (neuron.activate()) {
+            // Play the neuron click sound if the sound manager exists
+            if (typeof soundManager !== 'undefined') {
+                soundManager.play('neuronClick');
+            }
+            
             this.synapses
                 .filter(synapse => synapse.source === neuron)
                 .forEach(synapse => synapse.activate());
+            
+            return true;
         }
+        
+        return false;
     }
 
     update(deltaTime) {
         this.neurons.forEach(neuron => neuron.update(deltaTime));
-        this.synapses.forEach(synapse => synapse.update(deltaTime));
+        
+        // Reset the proper activation flag if end neuron is not active
+        if (this.endNeuron && !this.endNeuron.isActive) {
+            this.endNeuronActivatedProperly = false;
+        }
+        
+        // Process synapses and check if end neuron is properly activated
+        this.synapses.forEach(synapse => {
+            synapse.update(deltaTime);
+            
+            // If a synapse activates the end neuron, mark it as properly activated
+            if (synapse.target === this.endNeuron && this.endNeuron.isActive) {
+                this.endNeuronActivatedProperly = true;
+            }
+        });
     }
 
     draw(ctx) {
@@ -54,6 +83,7 @@ class Network {
     generateLevel(level) {
         this.neurons = [];
         this.synapses = [];
+        this.endNeuronActivatedProperly = false; // Reset the flag for the new level
 
         const width = window.innerWidth * 0.8;
         const height = window.innerHeight * 0.8;

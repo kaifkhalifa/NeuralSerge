@@ -118,9 +118,10 @@ class Game {
             
             const clickedNeuron = this.network.getNeuronAt(x, y);
             if (clickedNeuron) {
-                this.network.activateNeuron(clickedNeuron);
+                const activated = this.network.activateNeuron(clickedNeuron);
                 
-                if (clickedNeuron === this.network.endNeuron) {
+                // Only proceed to next level if end neuron was properly activated through a connection
+                if (activated && clickedNeuron === this.network.endNeuron && this.network.endNeuronActivatedProperly) {
                     this.score += Math.ceil(this.timeRemaining * 10);
                     this.nextLevel();
                 }
@@ -141,6 +142,12 @@ class Game {
     nextLevel() {
         this.level++;
         this.timeRemaining = 30;
+        
+        // Play level up sound
+        if (typeof soundManager !== 'undefined') {
+            soundManager.play('levelUp');
+        }
+        
         this.network.generateLevel(this.level);
         this.updateHUD();
     }
